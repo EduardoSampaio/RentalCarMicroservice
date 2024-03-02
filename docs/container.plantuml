@@ -1,0 +1,38 @@
+@startuml Microservice .NET
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define DEVICONS2 https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons2
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/postgresql.puml
+!include DEVICONS/mongodb.puml
+!include DEVICONS/redis.puml
+!include DEVICONS2/dotnetcore.puml
+!include DEVICONS2/docker.puml
+
+Container(frontend, "Client", "UI", $sprite="dotnetcore")
+
+System_Boundary(c2', "", "") {
+    System(identityServer, "Identity", "Server")
+    Container(gateway, "API GATEWAY", "Ocelot")
+    Container(payment, "API Payment", "", $sprite="dotnetcore")
+    Container(scheduling, "API Scheduling", "", $sprite="dotnetcore")
+    Container(rental, "API Rental", "", $sprite="dotnetcore")
+    ContainerDb(redis, "Database", "Redis", "", $sprite="redis")
+    ContainerDb(mongodb, "Database", "MongoDB", "", $sprite="mongodb")
+    ContainerDb(dbPostgres, "Database", "PostgresSQL", "", $sprite="postgresql")
+    ContainerDb(rabbitmq, "Message Bus", "RabbitMq", $sprite="rabbitmq")
+    Rel(gateway, payment, "", "")
+    Rel(gateway, scheduling, "", "")
+    Rel(gateway, rental, "", "")
+    Rel(frontend,identityServer, "Token", "")
+    Rel(frontend, gateway, "", "")
+    Rel(rental, dbPostgres, "", "")
+    Rel(scheduling, mongodb, "", "")
+    Rel(payment, redis, "", "")
+    Rel(rabbitmq, payment, "", "")
+    Rel(rabbitmq, rental, "", "")
+}
+
+
+@enduml
