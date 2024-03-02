@@ -7,7 +7,6 @@
 !include DEVICONS/postgresql.puml
 !include DEVICONS/mongodb.puml
 !include DEVICONS/redis.puml
-!include DEVICONS/rabbitmq.puml
 
 
 
@@ -25,7 +24,6 @@ Container_Boundary(c2, "", "") {
     ContainerDb(mongodb, "Database", "MongoDB", "", $sprite="mongodb")
     Container(rental, "Service", "API Rental")
     ContainerDb(dbPostgres, "Database", "PostgresSQL", "", $sprite="postgresql")
-    ContainerDb(rabbitmq, "RabbitMq", "", $sprite="rabbitmq")
     }
 }
 
