@@ -8,23 +8,18 @@
 !include DEVICONS/mongodb.puml
 !include DEVICONS/redis.puml
 
-
-
 System(identityServer, "Identity", "Server")
 Container(frontend, "frontend", "UI")
 
-
-Container_Boundary(c1, "", "") {
+Container_Boundary(c', "", "") {
 Container(gateway, "API GATEWAY", "Ocelot")
-
-Container_Boundary(c2, "", "") {
-    Container(payment, "Service", "API Payment GRPC")
-    ContainerDb(redis, "Database", "Redis", "", $sprite="redis")
-    Container(scheduling, "Service", "API Scheduling")
-    ContainerDb(mongodb, "Database", "MongoDB", "", $sprite="mongodb")
-    Container(rental, "Service", "API Rental")
-    ContainerDb(dbPostgres, "Database", "PostgresSQL", "", $sprite="postgresql")
-    }
+Container(payment, "Service", "API Payment")
+Container(scheduling, "Service", "API Scheduling")
+Container(rental, "Service", "API Rental")
+ContainerDb(redis, "Database", "Redis", "", $sprite="redis")
+ContainerDb(mongodb, "Database", "MongoDB", "", $sprite="mongodb")
+ContainerDb(dbPostgres, "Database", "PostgresSQL", "", $sprite="postgresql")
+ContainerDb(rabbitmq, "Message Bus", "RabbitMq", $sprite="rabbitmq")
 }
 
 Rel(gateway, payment, "", "")
@@ -36,4 +31,6 @@ Rel(frontend, gateway, "", "")
 Rel(rental, dbPostgres, "", "")
 Rel(scheduling, mongodb, "", "")
 Rel(payment, redis, "", "")
+Rel(rabbitmq, payment, "", "")
+Rel(rabbitmq, rental, "", "")
 @enduml
