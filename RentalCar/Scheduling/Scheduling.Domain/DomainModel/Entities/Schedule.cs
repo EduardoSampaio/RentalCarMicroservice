@@ -1,7 +1,7 @@
-﻿using Scheduling.Domain.Core;
-using Scheduling.Domain.ValueObjects;
+﻿using Scheduling.Domain.DomainModel.Core;
+using Scheduling.Domain.DomainModel.ValueObjects;
 
-namespace Scheduling.Domain.Entities;
+namespace Scheduling.Domain.DomainModel.Entities;
 public class Schedule : Entity
 {
     public DateStartEnd DateStartEnd { get; private set; }
@@ -20,6 +20,7 @@ public class Schedule : Entity
         TotalPay = CalculateTotalPay();
         CarCategory = carCategory;
         CarCategoryId = CarCategory.Id;
+        Validate();
     }
 
     public Schedule(DateTime startDate, DateTime endDate, string pickUpLocation, bool isSamePlace, Category carCategory)
@@ -30,13 +31,11 @@ public class Schedule : Entity
         TotalPay = CalculateTotalPay();
         CarCategory = carCategory;
         CarCategoryId = CarCategory.Id;
+        Validate();
     }
 
     private decimal CalculateTotalPay()
-    {
-        if (CarCategory is null)
-            throw new Exception("Car Category Is Null");
-
+    {       
         return CarCategory.TotalPerDay * DateStartEnd.NumberOfDays();
     }
 
@@ -50,5 +49,20 @@ public class Schedule : Entity
     {
         CarCategory = carCategory;
         CarCategoryId = carCategory.Id;
+    }
+
+    public void ChangeLocationPickUp(string pickUpLocation)
+    {
+        PickUpLocation = pickUpLocation;
+    }
+    public void ChangeLocationReturn(string? returnLocation)
+    {
+        ReturnLocation = returnLocation;
+    }
+
+    public void Validate()
+    {
+        AssertionConcern.AssertArgumentNotNull(CarCategory, "Car Category Is Null");
+        AssertionConcern.AssertArgumentNotNull(PickUpLocation, "PickUp Location Is Null");
     }
 }

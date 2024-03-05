@@ -1,4 +1,4 @@
-﻿namespace Scheduling.Domain.Core;
+﻿namespace Scheduling.Domain.DomainModel.Core;
 public abstract class ValueObject
 {
     protected static bool EqualOperator(ValueObject left, ValueObject right)
@@ -7,7 +7,7 @@ public abstract class ValueObject
         {
             return false;
         }
-        return ReferenceEquals(left, right) || (left is not null && left.Equals(right));
+        return ReferenceEquals(left, right) || left is not null && left.Equals(right);
     }
 
     protected static bool NotEqualOperator(ValueObject left, ValueObject right)
@@ -26,7 +26,7 @@ public abstract class ValueObject
 
         var other = (ValueObject)obj;
 
-        return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+        return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
     }
 
     public override int GetHashCode()
