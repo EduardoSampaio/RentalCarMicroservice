@@ -1,8 +1,9 @@
 ﻿using Scheduling.Domain.DomainModel.Core;
+using Scheduling.Domain.DomainModel.Core.Interfaces;
 using Scheduling.Domain.DomainModel.ValueObjects;
 
 namespace Scheduling.Domain.DomainModel.Entities;
-public class Schedule : Entity
+public class Schedule : Entity, IAggregateRoot
 {
     public DateStartEnd DateStartEnd { get; private set; }
     public decimal TotalPay { get; private set; }
