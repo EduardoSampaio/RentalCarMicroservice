@@ -1,19 +1,6 @@
 version: '3.4'
 
 services:
-  payment.api:
-    image: ${DOCKER_REGISTRY-}paymentapi
-    build:
-      context: .
-      dockerfile: Payment/Payment.API/Dockerfile
-
-  scheduling.api:
-    image: ${DOCKER_REGISTRY-}schedulingapi
-    build:
-      context: .
-      dockerfile: Scheduling/Scheduling.API/Dockerfile
-
-
   rental.api:
     image: ${DOCKER_REGISTRY-}rentalapi
     build:
