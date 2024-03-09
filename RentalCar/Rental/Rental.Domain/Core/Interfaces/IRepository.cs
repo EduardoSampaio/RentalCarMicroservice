@@ -1,10 +1,14 @@
-﻿namespace Rental.Domain.Core.Interfaces;
-public interface IRepository<T> : IDisposable where T : Entity
+﻿using System.Linq.Expressions;
+
+namespace Rental.Domain.Core.Interfaces;
+public interface IRepository<TEntity> : IDisposable where TEntity : Entity
 {
     IUnitOfWork UnitOfWork { get; }
-    Task<T> CreateAsync(T entity);
-    Task<T> UpdateAsync(T entity);
-    Task DeleteAsync(T entity);
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T?> GetByIdAsync(int id);   
+    Task CreateAsync(TEntity entity);
+    void Update(TEntity entity);
+    void Delete(TEntity entity);
+    Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+            string includeProperties = "");
+    Task<TEntity?> GetByIdAsync(int id);   
 }
