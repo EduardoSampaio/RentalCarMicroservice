@@ -8,8 +8,8 @@ public class RentalContext : DbContext, IUnitOfWork
 {
     public RentalContext(DbContextOptions<RentalContext> options) : base(options) { }
 
-    private DbSet<CarCatalog> CarCatalog { get; set; }
-    private DbSet<CarCategory> CarCategory { get; set; }
+    private DbSet<Catalog> Catalog { get; set; }
+    private DbSet<Category> Category { get; set; }
     private DbSet<CarRental> CarRental { get; set; }
     private DbSet<Client> Client { get; set; }
 

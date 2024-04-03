@@ -1,4 +1,4 @@
 ﻿namespace Rental.Domain.Events;
-internal class DomainEvents
+public class DomainEvents
 {
 }

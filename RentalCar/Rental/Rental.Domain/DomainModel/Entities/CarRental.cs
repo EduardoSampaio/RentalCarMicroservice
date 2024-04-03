@@ -11,12 +11,12 @@ public class CarRental : Entity, IAggregateRoot
     public string PickUpLocation { get; set; } = string.Empty;
     public string? ReturnLocation { get; set; }
     public int CarCategoryId { get; private set; }
-    public CarCategory CarCategory { get; private set; }
+    public Category CarCategory { get; private set; }
     public Client Client { get; private set; }
 
     protected CarRental() { }
 
-    public CarRental(DateTime startDate, DateTime endDate, string pickUpLocation, string? returnLocation, Client client, CarCategory carCategory)
+    public CarRental(DateTime startDate, DateTime endDate, string pickUpLocation, string? returnLocation, Client client, Category carCategory)
     {
         DateStartEnd = new DateStartEnd(startDate, endDate);
         PickUpLocation = pickUpLocation;
@@ -28,7 +28,7 @@ public class CarRental : Entity, IAggregateRoot
         Validate();
     }
 
-    public CarRental(DateTime startDate, DateTime endDate, string pickUpLocation, bool isSamePlace, Client client, CarCategory carCategory)
+    public CarRental(DateTime startDate, DateTime endDate, string pickUpLocation, bool isSamePlace, Client client, Category carCategory)
     {
         DateStartEnd = new DateStartEnd(startDate, endDate);
         PickUpLocation = pickUpLocation;
@@ -51,7 +51,7 @@ public class CarRental : Entity, IAggregateRoot
         TotalPay = CalculateTotalPay();
     }
 
-    public void ChangeCategory(CarCategory carCategory)
+    public void ChangeCategory(Category carCategory)
     {
         CarCategory = carCategory;
         CarCategoryId = carCategory.Id;

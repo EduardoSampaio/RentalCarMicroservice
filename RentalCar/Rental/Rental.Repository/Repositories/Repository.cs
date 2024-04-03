@@ -2,15 +2,15 @@
 using Rental.Domain.Core;
 using Rental.Domain.Core.Interfaces;
 using Rental.Infrasctructure.EF;
-using System.Linq.Expressions;
 using System.Data;
+using System.Linq.Expressions;
 
 
 namespace Rental.Infrasctructure.Repositories;
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 {
-    internal RentalContext _context;
-    internal DbSet<TEntity> dbSet;
+    protected RentalContext _context;
+    protected DbSet<TEntity> dbSet;
 
     public Repository(RentalContext context)
     {
